@@ -28,14 +28,13 @@ public class Sword extends Actor
      */
     public void checkKey()
     {
-        if(Greenfoot.isKeyDown("s") && !swung || Greenfoot.isKeyDown("down") && !swung)
+        if(Greenfoot.isKeyDown("f") && !swung || Greenfoot.isKeyDown("down") && !swung)
         {
             Greenfoot.playSound("sword.mp3");
             attack();
-            //swing();
             swung = true;
         }
-        else if (!Greenfoot.isKeyDown("s") && swung && !Greenfoot.isKeyDown("down"))
+        else if (!Greenfoot.isKeyDown("f") && swung && !Greenfoot.isKeyDown("down"))
         {
             swung = false;
         }

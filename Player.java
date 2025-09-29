@@ -7,6 +7,8 @@ public class Player extends Actor
     private int vSpeed = 2;
     private int acceleration = 2;
     public int jumpStrength = 22;
+    //false = right, true = left
+    private boolean direction = false;
     private boolean jumped = false;
     
     public void act() 
@@ -89,19 +91,17 @@ public class Player extends Actor
         {
             sword = getOneIntersectingObject(Sword.class);
         }
-        else if (sword != null && sword.getWorld() != null 
-        && !Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("a"))
-        {
-            sword.setLocation(getX() + 45, getY() - 8);
-            sword.setImage("sword.png");
-            setImage("playerR.png");
-        }
-        else if (sword != null && sword.getWorld() != null 
-        && !Greenfoot.isKeyDown("right") && !Greenfoot.isKeyDown("d"))
+        else if (direction)
         {
             sword.setLocation(getX() - 45, getY() - 8);
             sword.setImage("turned-sword.png");
             setImage("playerL.png");
+        }
+        else if (!direction)
+        {
+            sword.setLocation(getX() + 45, getY() - 8);
+            sword.setImage("sword.png");
+            setImage("playerR.png");
         }
     }
 
@@ -111,12 +111,13 @@ public class Player extends Actor
      */
     public void moveRight()
     {
+        direction = false;
         Actor RightTop = getOneObjectAtOffset(35,-45,Platform.class);
         Actor RightMiddle = getOneObjectAtOffset(35,0,Platform.class);
         Actor RightBottom = getOneObjectAtOffset(35,45,Platform.class);
         if(RightTop == null && RightMiddle == null && RightBottom == null)
         {
-            setLocation (getX() + hSpeed, getY());  
+            setLocation (getX() + hSpeed, getY());
         }
     }
 
@@ -126,6 +127,7 @@ public class Player extends Actor
      */
     public void moveLeft()
     {
+        direction = true;
         Actor LeftTop = getOneObjectAtOffset(-31,-45,Platform.class);
         Actor LeftMiddle = getOneObjectAtOffset(-31,0,Platform.class);
         Actor LeftBottom = getOneObjectAtOffset(-31,45,Platform.class);
